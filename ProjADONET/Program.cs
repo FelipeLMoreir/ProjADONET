@@ -3,7 +3,7 @@ using ProjADONET;
 
 var connection = new SqlConnection(DBConnection.GetConnectionString());
 
-var pessoa = new Pessoa("João Silva", "12345678900", new DateOnly(1990, 5, 15));
+var pessoa = new Pessoa("Felipe Moreira", "12345678900", new DateOnly(2004, 12, 19));
 
 var sqlInsertPessoa = $"INSERT INTO Pessoas (nome, cpf, dataNascimento) " +
     $"VALUES (@Nome, @CPF, @DataNascimento)";
@@ -37,6 +37,12 @@ command = new SqlCommand(sqlSelectPessoas, connection);
 
 var reader = command.ExecuteReader();
 
-
+while (reader.Read())
+{
+    foreach (var pessoaDaLista in reader)
+    {
+        Console.WriteLine(pessoaDaLista);
+    }
+}
 
 connection.Close();
