@@ -8,7 +8,7 @@ namespace ProjADONET
 {
     internal class Pessoa
     {
-        public int Id { get; set; }
+        public int Id { get; private set; }
         public string Nome { get; private set; }
         public string CPF { get; private set; }
         public DateOnly DataNascimento { get; private set; }
@@ -19,6 +19,11 @@ namespace ProjADONET
             CPF = cpf;
             DataNascimento = dataNascimento;
         }
+
+        public void SetId(int id)
+        {
+            Id = id;
+        }   
 
         public override string ToString()
         {
