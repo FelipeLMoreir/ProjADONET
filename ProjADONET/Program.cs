@@ -2,11 +2,12 @@
 using ProjADONET;
 
 var connection = new SqlConnection(DBConnection.GetConnectionString());
+
 #region insert
-var pessoa = new Pessoa("Felipe Moreira", "72345678900", new DateOnly(2004, 12, 19));
+var pessoa = new Pessoa("Felipe Moreira", "77745678900", new DateOnly(2004, 12, 19));
 
 var sqlInsertPessoa = $"INSERT INTO Pessoas (nome, cpf, dataNascimento) " +
-    $"VALUES (@Nome, @CPF, @DataNascimento)";
+    $"VALUES (@Nome, @CPF, @DataNascimento) SELECT SCOPE_IDENTITY();";
 
 connection.Open();
 
@@ -15,6 +16,21 @@ var command = new SqlCommand(sqlInsertPessoa, connection);
 command.Parameters.AddWithValue("@Nome", pessoa.Nome);
 command.Parameters.AddWithValue("@CPF", pessoa.CPF);
 command.Parameters.AddWithValue("@DataNascimento", pessoa.DataNascimento);
+
+int pessoaId = Convert.ToInt32(command.ExecuteScalar());
+
+var telefone = new Telefone("11", "987654321", "Celular", pessoaId);
+
+var sqlInsertTelefone = $"INSERT INTO Telefones (ddd, numero, tipo, pessoaId) " +
+    $"VALUES (@DDD, @Numero, @Tipo, @PessoaId)";
+
+command = new SqlCommand(sqlInsertTelefone, connection);
+command.Parameters.AddWithValue("@DDD", telefone.DDD);
+command.Parameters.AddWithValue("@Numero", telefone.Numero);
+command.Parameters.AddWithValue("@Tipo", telefone.Tipo);
+command.Parameters.AddWithValue("@PessoaId", telefone.PessoaId);
+
+command.ExecuteNonQuery();
 
 //int linhas = command.ExecuteNonQuery();
 
