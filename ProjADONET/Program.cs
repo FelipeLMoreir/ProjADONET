@@ -52,7 +52,6 @@ reader.Close();
 
 connection.Close();
 #endregion
-
 #region update
 connection.Open();
 
@@ -62,6 +61,17 @@ command = new SqlCommand(sqlUpdatePessoa, connection);
 command.Parameters.AddWithValue("@Nome", "Felipe M. Silva");
 command.Parameters.AddWithValue("@Id", 1);
 
+command.ExecuteNonQuery();
+
+connection.Close();
+#endregion
+#region delete
+connection.Open();
+
+var sqlDeletePessoa = "DELETE FROM Pessoas WHERE id = @Id";
+
+command = new SqlCommand(sqlDeletePessoa, connection);
+command.Parameters.AddWithValue("@Id", 6);
 command.ExecuteNonQuery();
 
 connection.Close();
