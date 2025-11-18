@@ -22,6 +22,11 @@ namespace ProjADONET
             PessoaId = pessoaId;
         }
 
+        public void SetId(int id)
+        {
+            Id = id;
+        }
+
         public override string ToString()
         {
             return $"DDD: {DDD}\nNúmero: {Numero}\nTipo: {Tipo}";

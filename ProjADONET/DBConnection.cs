@@ -12,7 +12,8 @@ namespace ProjADONET
         
         public static string GetConnectionString()
         {
-            return "Data Source=localhost;Initial Catalog=AulaADO;User Id = sa;Password = SqlServer@2022; Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;";
+            return "Data Source=localhost;Initial Catalog=AulaADO;User Id = sa;" +
+                "Password = SqlServer@2022; Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;";
         }
     }
 }

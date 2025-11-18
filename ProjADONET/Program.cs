@@ -52,19 +52,38 @@ var sqlSelectPessoas = "SELECT id, nome, cpf, dataNascimento FROM Pessoas";
 
 command = new SqlCommand(sqlSelectPessoas, connection);
 
-var reader = command.ExecuteReader();
+var readerPessoas = command.ExecuteReader();
 
-while (reader.Read())
+while (readerPessoas.Read())
 {
     var pessoaDaLista = new Pessoa(
-        reader.GetString(1),
-        reader.GetString(2),
-        DateOnly.FromDateTime(reader.GetDateTime(3))
+        readerPessoas.GetString(1),
+        readerPessoas.GetString(2),
+        DateOnly.FromDateTime(readerPessoas.GetDateTime(3))
     );
-    pessoaDaLista.SetId(reader.GetInt32(0));
+    pessoaDaLista.SetId(readerPessoas.GetInt32(0));
     Console.WriteLine(pessoaDaLista);
 }
-reader.Close();
+readerPessoas.Close();
+
+var sqlSelectTelefones = "SELECT id, ddd, numero, tipo, pessoaId FROM Telefones";
+
+command = new SqlCommand(sqlSelectTelefones, connection);
+
+var readerTelefones = command.ExecuteReader();
+
+while (readerTelefones.Read())
+{
+    var telefoneDaLista = new Telefone(
+        readerTelefones.GetString(1),
+        readerTelefones.GetString(2),
+        readerTelefones.GetString(3),
+        readerTelefones.GetInt32(4)
+    );
+    telefoneDaLista.SetId(readerTelefones.GetInt32(0));
+    Console.WriteLine(telefoneDaLista);
+}
+readerTelefones.Close();
 
 connection.Close();
 #endregion
@@ -79,6 +98,14 @@ command.Parameters.AddWithValue("@Id", 1);
 
 command.ExecuteNonQuery();
 
+var sqlUpdateTelefone = "UPDATE Telefones SET numero = @Numero WHERE id = @Id";
+
+command = new SqlCommand(sqlUpdateTelefone, connection);
+command.Parameters.AddWithValue("@Numero", "987654322");
+command.Parameters.AddWithValue("@Id", 1);
+
+command.ExecuteNonQuery();
+
 connection.Close();
 #endregion
 #region delete
@@ -88,6 +115,14 @@ var sqlDeletePessoa = "DELETE FROM Pessoas WHERE id = @Id";
 
 command = new SqlCommand(sqlDeletePessoa, connection);
 command.Parameters.AddWithValue("@Id", 6);
+
+command.ExecuteNonQuery();
+
+var sqlDeleteTelefone = "DELETE FROM Telefones WHERE id = @Id";
+
+command = new SqlCommand(sqlDeleteTelefone, connection);
+command.Parameters.AddWithValue("@Id", 6);
+
 command.ExecuteNonQuery();
 
 connection.Close();
