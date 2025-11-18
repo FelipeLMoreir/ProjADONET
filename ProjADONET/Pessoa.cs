@@ -24,7 +24,7 @@ namespace ProjADONET
         public void SetId(int id)
         {
             Id = id;
-        }   
+        }
 
         public override string ToString()
         {

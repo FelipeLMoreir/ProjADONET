@@ -9,7 +9,7 @@ namespace ProjADONET
     internal class DBConnection
     {
         public string ConnectionString { get; private set; } = String.Empty;
-        
+
         public static string GetConnectionString()
         {
             return "Data Source=localhost;Initial Catalog=AulaADO;User Id = sa;" +
