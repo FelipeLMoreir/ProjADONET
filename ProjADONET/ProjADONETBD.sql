@@ -3,25 +3,30 @@ USE [master]
  /****** Object: Database [AulaADO]   Script Date: 11/17/2025 13:19:19 ******/
  CREATE DATABASE AulaADO
  GO
-USE AulaADO
+USE [AulaADO]
  GO
- /****** Object: Table [dbo].[Enderecos]   Script Date: 11/17/2025 13:19:19 ******/
+/****** Object: Table [dbo].[Enderecos]   Script Date: 11/18/2025 14:25:14 ******/
+ SET ANSI_NULLS ON
+ GO
+SET QUOTED_IDENTIFIER ON
+ GO
 CREATE TABLE [dbo].[Enderecos](
  [id] [int] IDENTITY(1,1) NOT NULL,
  [logradouro] [varchar](100) NOT NULL,
- [numero] [int] NOT NULL,
+ [numero] [int] NULL,
  [complemento] [varchar](100) NULL,
  [bairro] [varchar](100) NOT NULL,
  [cidade] [varchar](100) NOT NULL,
  [estado] [varchar](2) NOT NULL,
  [cep] [varchar](10) NOT NULL,
- [pessoaId] [int] NULL,
+ [pessoaId] [int] NOT NULL,
  PRIMARY KEY CLUSTERED
  (
  [id] ASC
  )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
  ) ON [PRIMARY]
  GO
+
  /****** Object: Table [dbo].[Pessoas]   Script Date: 11/17/2025 13:19:19 ******/
  SET ANSI_NULLS ON
  GO
@@ -72,8 +77,10 @@ CREATE TABLE [dbo].[Enderecos](
 
  SELECT * FROM Pessoas
  SELECT * FROM Telefones
+ SELECT * FROM Enderecos
 
- SELECT * FROM Pessoas p
- JOIN Telefones t
- ON p.id = t.pessoaId
+ SELECT * 
+FROM Pessoas p
+JOIN Telefones t ON p.id = t.pessoaId
+JOIN Enderecos e ON p.id = e.pessoaId;
 
