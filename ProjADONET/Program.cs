@@ -7,7 +7,7 @@ var connection = new SqlConnection(DBConnection.GetConnectionString());
 var pessoa = new Pessoa("Felipe Moreira", "77745678900", new DateOnly(2004, 12, 19));
 
 var sqlInsertPessoa = $"INSERT INTO Pessoas (nome, cpf, dataNascimento) " +
-    $"VALUES (@Nome, @CPF, @DataNascimento) SELECT SCOPE_IDENTITY();";
+    $"VALUES (@Nome, @CPF, @DataNascimento) SELECT SCOPE_IDENTITY();10diagram";
 
 connection.Open();
 
