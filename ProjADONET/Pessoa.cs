@@ -12,7 +12,9 @@ namespace ProjADONET
         public string Nome { get; private set; }
         public string CPF { get; private set; }
         public DateOnly DataNascimento { get; private set; }
-        public List<Telefone> Telefones { get; private set; } = new List<Telefone>();
+        public List<Telefone> Telefones { get; private set; } = [];
+        public List<Endereco> Enderecos { get; private set; } = [];
+
 
         public Pessoa(string nome, string cpf, DateOnly dataNascimento)
         {
@@ -26,9 +28,12 @@ namespace ProjADONET
             Id = id;
         }
 
-        public override string ToString()
+        public override string? ToString()
         {
-            return $"Id: {Id}\nNome: {Nome}\nCPF: {CPF}\nData de Nascimento: {DataNascimento}";
+
+
+            return $"Id: {Id}\n Nome: {Nome}\n Cpf: {CPF}\n Data de Nascimento: {DataNascimento}" +
+                $"\nTelefones: \n{string.Join("\n", Telefones.Select(x => x.ToString()))}";
         }
     }
 }
